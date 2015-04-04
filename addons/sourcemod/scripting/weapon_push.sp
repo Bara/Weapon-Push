@@ -135,7 +135,7 @@ public Action OnTakeDamageAlive(int victim, int &attacker, int &inflictor, float
 stock bool CheckAttacker(int client)
 {
 	if (IsClientInGame(client) && 
-		(g_cTeamCanUse.IntValue == 1 && GetClientTeam(client) == CS_TEAM_CT || GetClientTeam(client) == CS_TEAM_T && CheckCommandAccess(client, "sm_admin", ADMFLAG_GENERIC)) || 
+		(g_cTeamCanUse.IntValue == 0 && GetClientTeam(client) == CS_TEAM_CT || GetClientTeam(client) == CS_TEAM_T && CheckCommandAccess(client, "sm_admin", ADMFLAG_GENERIC)) || 
 		(g_cTeamCanUse.IntValue == 1 && GetClientTeam(client) == CS_TEAM_CT || GetClientTeam(client) == CS_TEAM_T) || 
 		(g_cTeamCanUse.IntValue == 2 && GetClientTeam(client) == CS_TEAM_T) || 
 		(g_cTeamCanUse.IntValue == 3 && GetClientTeam(client) == CS_TEAM_CT))
@@ -148,7 +148,7 @@ stock bool CheckAttacker(int client)
 stock bool CheckVictim(int client)
 {
 	if (IsClientInGame(client) && 
-		(g_cTeamCanHit.IntValue == 1 && GetClientTeam(client) == CS_TEAM_CT || GetClientTeam(client) == CS_TEAM_T && CheckCommandAccess(client, "sm_admin", ADMFLAG_GENERIC)) || 
+		(g_cTeamCanHit.IntValue == 0 && GetClientTeam(client) == CS_TEAM_CT || GetClientTeam(client) == CS_TEAM_T && CheckCommandAccess(client, "sm_admin", ADMFLAG_GENERIC)) || 
 		(g_cTeamCanHit.IntValue == 1 && GetClientTeam(client) == CS_TEAM_CT || GetClientTeam(client) == CS_TEAM_T) || 
 		(g_cTeamCanHit.IntValue == 2 && GetClientTeam(client) == CS_TEAM_T) || 
 		(g_cTeamCanHit.IntValue == 3 && GetClientTeam(client) == CS_TEAM_CT))
