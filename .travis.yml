@@ -9,8 +9,8 @@ env:
 
 before_script:
   - FILE="sourcemod-$SOURCEMOD-linux.tar.gz"
-  - wget http://www.gsptalk.com/mirror/sourcemod/$SMFILE
-  - tar -xzf $SMFILE
+  - wget http://www.gsptalk.com/mirror/sourcemod/$FILE
+  - tar -xzf $FILE
   - chmod +rx addons/sourcemod/scripting/spcomp
   - cd addons/sourcemod/scripting/
   
