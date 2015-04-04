@@ -10,7 +10,7 @@
 	"PlayerPushCount"
 	{
 		"#format"		"{1:d},{2:d}"
-		"en"			"You push count is now {1}/{2}"
-		"de"			"Dein Push Count ist nun {1}/{2}"
+		"en"			"{green}You {lightgreen}push count is now {green}{1}{lightgreen}/{green}{2}{lightgreen}."
+		"de"			"{green}Dein {lightgreen}Push Count ist nun {green}{1}{lightgreen}/{green}{2}{lightgreen}."
 	}
 }
