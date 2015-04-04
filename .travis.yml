@@ -5,22 +5,13 @@ addons:
     - lib32stdc++6
 
 env:
-  - VERSION=1.7
-  - VERSION=1.8
-
-matrix:
-  fast_finish: true
-  allow_failures:
-    - env: VERSION=1.8
+  - SOURCEMOD=1.7.0
 
 before_script:
-  - SMPATTERN="http:.*sourcemod-.*-linux.*"
-  - SMURL="http://www.sourcemod.net/smdrop/$VERSION/"
-  - SMPACKAGE=`lynx -dump "$SMURL" | egrep -o "$SMPATTERN" | tail -1`
-  - wget $SMPACKAGE
-  - tar -xzf $(basename "$SMPACKAGE")
+  - FILE="sourcemod-$SOURCEMOD-linux.tar.gz"
+  - wget http://www.gsptalk.com/mirror/sourcemod/$SMFILE
+  - tar -xzf $SMFILE
   - chmod +rx addons/sourcemod/scripting/spcomp
-  - chmod +rx addons/sourcemod/scripting/compile.sh
   - cd addons/sourcemod/scripting/
   
 script:
