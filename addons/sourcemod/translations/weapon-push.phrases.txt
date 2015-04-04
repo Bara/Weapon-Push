@@ -1,0 +1,9 @@
+﻿"Phrases"
+{
+	"PlayerHit"
+	{
+		"#format"		"{1:N}"
+		"en"			"{green}{1} {lightgreen}has beaten you."
+		"de"			"{green}{1} {lightgreen}hat dich geschlagen."
+	}
+}
