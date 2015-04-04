@@ -21,6 +21,10 @@ ConVar g_cMaxDamage = null;
 ConVar g_cDisableDamage = null;
 ConVar g_cEnableCustomDamage = null;
 ConVar g_cCustomDamage = null;
+ConVar g_cMaxPushPerRoundEnable = null;
+ConVar g_cMaxPushPerRoundCount = null;
+
+int g_iPushCount[MAXPLAYERS + 1] =  { 0, ... };
 
 ArrayList g_aWeapons = null;
 
@@ -52,10 +56,14 @@ public void OnPluginStart()
 	g_cDisableDamage = CreateConVar("weapon-push_disable_damage", "1", "Should disable damage?", _, true, 0.0, true, 1.0);
 	g_cEnableCustomDamage = CreateConVar("weapon-push_enable_custom_damage", "0", "Do you want modify damage?", _, true, 0.0, true, 1.0);
 	g_cCustomDamage = CreateConVar("weapon-push_custom_damage", "5", "How much damage? (weapon-push_disable_damage must be 0)");
+	g_cMaxPushPerRoundEnable = CreateConVar("weapon-push_max_push_per_round_enable", "1", "Enable 'Limited Pushs per Round'?", _, true, 0.0, true, 1.0);
+	g_cMaxPushPerRoundCount = CreateConVar("weapin-push_max_push_per_round_count", "5", "How often can use a player this plugin per round?");
 	
 	AutoExecConfig(true);
 	
 	g_aWeapons = new ArrayList();
+	
+	HookEvent("player_spawn", Event_PlayerSpawn);
 	
 	LoadTranslations("weapon-push.phrases");
 	
@@ -85,6 +93,16 @@ public void OnConfigsExecuted()
 	}
 }
 
+public Action Event_PlayerSpawn(Event event, const char[] name, bool dontBroadcast)
+{
+	int client = GetClientOfUserId(event.GetInt("userid"));
+	
+	if(IsClientInGame(client))
+	{
+		g_iPushCount[client] = 0;
+	}
+}
+
 public void OnClientPutInServer(int client)
 {
 	SDKHook(client, SDKHook_OnTakeDamageAlive, OnTakeDamageAlive);
@@ -110,6 +128,12 @@ public Action OnTakeDamageAlive(int victim, int &attacker, int &inflictor, float
 					
 					if ((StrContains(sWeapon, sBuffer, false) != -1))
 					{
+						if(g_cMaxPushPerRoundEnable.BoolValue && g_iPushCount[attacker] >= g_cMaxPushPerRoundCount.IntValue)
+							return Plugin_Continue;
+						
+						g_iPushCount[attacker]++;
+						CPrintToChat(attacker, "%T", "PlayerPushCount", attacker, g_iPushCount[attacker], g_cMaxPushPerRoundCount.IntValue);
+						
 						PushPlayer(victim, attacker);
 						
 						if (g_cEnableMessage.BoolValue)

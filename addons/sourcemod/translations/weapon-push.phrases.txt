@@ -6,4 +6,11 @@
 		"en"			"{green}{1} {lightgreen}has beaten you."
 		"de"			"{green}{1} {lightgreen}hat dich geschlagen."
 	}
+	
+	"PlayerPushCount"
+	{
+		"#format"		"{1:d},{2:d}"
+		"en"			"You push count is now {1}/{2}"
+		"de"			"Dein Push Count ist nun {1}/{2}"
+	}
 }
